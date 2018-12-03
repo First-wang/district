@@ -2,6 +2,7 @@
 
 <p align="center"> A district SDK. 友好支持Laravel框架</p>
 
+[![Build Status](https://travis-ci.org/First-wang/district.svg?branch=master)](https://travis-ci.org/First-wang/district)
 
 ## 安装
 
