@@ -34,21 +34,19 @@ class District
      * @param string $keywords
      * @param int    $subdistrict
      * @param string $output
-     *
      * @return mixed|string
-     *
      * @throws HttpException
      * @throws InvalidArgumentException
      */
-    public function getDistrict(string $keywords, int $subdistrict = 0, string $output = 'JSON')
+    public function getDistrict(string $keywords,int $subdistrict = 0,string $output = 'JSON')
     {
         $this->argValidate($subdistrict, $output);
 
         $client = $this->getHttpClient();
 
         $parameters = [
-            'key' => $this->key,
-            'keywords' => $keywords,
+            'key'=>$this->key,
+            'keywords'=>$keywords,
             'subdistrict' => $subdistrict,
             'output' => strtoupper($output),
         ];
