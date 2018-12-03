@@ -13,7 +13,6 @@ use Wdy\District\Exception\InvalidArgumentException;
 
 class DistrictTest extends TestCase
 {
-
     public function testGetHttpClient()
     {
         /** arrange */
@@ -22,7 +21,7 @@ class DistrictTest extends TestCase
         /** act */
         $actual = $district->getHttpClient();
 
-        /** assert */
+        /* assert */
         $this->assertInstanceOf(ClientInterface::class, $actual);
     }
 
@@ -46,16 +45,16 @@ class DistrictTest extends TestCase
                 'key' => 'mock-key',
                 'keywords' => '成都',
                 'subdistrict' => 1,
-                'output' => 'JSON'
-            ]
+                'output' => 'JSON',
+            ],
         ])->andReturn($response);
 
-        $district = \Mockery::mock(District::class, ['mock-key'])->makePartial();;
+        $district = \Mockery::mock(District::class, ['mock-key'])->makePartial();
         $district->allows()->getHttpClient()->andReturn($client);
         /** act */
         $actual = $district->getDistrict('成都', 1);
 
-        /** assert */
+        /* assert */
         $this->assertSame(['success' => true], $actual);
     }
 
@@ -76,13 +75,13 @@ class DistrictTest extends TestCase
         $client = \Mockery::mock(Client::class);
         $client->allows()->get(new AnyArgs())
             ->andThrow(new \Exception('run time error'));
-        $district = \Mockery::mock(District::class, ['mock-key'])->makePartial();;
+        $district = \Mockery::mock(District::class, ['mock-key'])->makePartial();
         $district->allows()->getHttpClient()->andReturn($client);
 
-        /** assert */
+        /* assert */
         $this->expectException(HttpException::class);
 
-        /** act */
+        /* act */
         $district->getDistrict('成都');
     }
 }

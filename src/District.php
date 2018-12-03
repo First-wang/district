@@ -2,7 +2,6 @@
 
 namespace Wdy\District;
 
-
 use GuzzleHttp\Client;
 use Wdy\District\Exception\HttpException;
 use Wdy\District\Exception\InvalidArgumentException;
@@ -18,7 +17,7 @@ class District
     public function __construct(string $key)
     {
         $this->key = $key;
-        $this->url = "https://restapi.amap.com/v3/config/district";
+        $this->url = 'https://restapi.amap.com/v3/config/district';
     }
 
     public function getHttpClient()
@@ -33,9 +32,11 @@ class District
 
     /**
      * @param string $keywords
-     * @param int $subdistrict
+     * @param int    $subdistrict
      * @param string $output
+     *
      * @return mixed|string
+     *
      * @throws HttpException
      * @throws InvalidArgumentException
      */
@@ -49,13 +50,14 @@ class District
             'key' => $this->key,
             'keywords' => $keywords,
             'subdistrict' => $subdistrict,
-            'output' => strtoupper($output)
+            'output' => strtoupper($output),
         ];
 
         try {
             $response = $client->get($this->url, [
-                'query' => $parameters
+                'query' => $parameters,
             ])->getBody()->getContents();
+
             return 'JSON' === $output ? \json_decode($response, true) : $response;
         } catch (\Exception $exception) {
             throw new HttpException($exception->getMessage(), $exception->getCode(), $exception);
@@ -65,11 +67,12 @@ class District
     /**
      * @param $subdistrict
      * @param $output
+     *
      * @throws InvalidArgumentException
      */
     private function argValidate($subdistrict, $output)
     {
-        if (!in_array((int)$subdistrict, [0, 1, 2, 3])) {
+        if (!in_array((int) $subdistrict, [0, 1, 2, 3])) {
             throw new InvalidArgumentException('subdistrict参数错误');
         }
 

@@ -2,14 +2,13 @@
 
 namespace Wdy\District;
 
-
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     protected $defer = true;
 
     public function register()
     {
-        $this->app->singleton(District::class, function(){
+        $this->app->singleton(District::class, function () {
             return new District(config('services.district.key'));
         });
 
